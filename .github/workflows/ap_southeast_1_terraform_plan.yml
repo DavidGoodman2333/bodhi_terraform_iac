@@ -2,7 +2,7 @@ name: Terraform Infra Plan - AP Southeast 1
 on:
   pull_request:
     paths:
-      - 'infras/int/ap-southeast-1/**'
+      - 'infra/int/ap-southeast-1/**'
 jobs:
   call-terraform-plan-workflow:
     uses: ./.github/workflows/terraform_plan_workflow.yml
