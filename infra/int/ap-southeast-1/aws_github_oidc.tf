@@ -3,6 +3,6 @@ module "iam_github_oidc_provider" {
 
   tags = {
     terraform-managed = true
-    environment       = "prod"
+    environment       = "int"
   }
 }
