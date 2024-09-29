@@ -2,7 +2,7 @@ name: Terraform Infra Apply - AP East 1
 on:
   pull_request:
     paths:
-      - 'infras/int/ap-southeast-1/**'
+      - 'infra/int/ap-southeast-1/**'
     types:
       - closed
     branches:
