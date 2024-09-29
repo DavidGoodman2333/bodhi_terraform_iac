@@ -12,7 +12,7 @@ resource "aws_iam_role" "github-oidc-role" {
         }
         Condition = {
           "StringLike" = {
-            "token.actions.githubusercontent.com:sub" : ["repo:AveDex/ave-terraform-iac:*", "repo:AveDex/ave-flink-applications:*", "repo:AveDex/ave_solana_etl:*", "repo:AveDex/ave_inscription_monitor:*", "repo:AveDex/ave2_kline_recording:*", "repo:AveDex/solana_event_parser:*", "repo:AveDex/ave2_token_price:*", "repo:AveDex/akka-http-middleware:*", "repo:AveDex/ave_evm_etl:*", "repo:AveDex/ave_evm_event_parser:*", "repo:AveDex/ave_sol_etl_supplement:*"],
+            "token.actions.githubusercontent.com:sub" : ["repo:avidGoodman2333/bodhi_terraform_iac:*"],
           }
 
           "StringEquals" = {
@@ -25,7 +25,7 @@ resource "aws_iam_role" "github-oidc-role" {
 
   tags = {
     terraform-managed = true
-    environment       = "prod"
+    environment       = "int"
   }
 
 }
@@ -58,7 +58,7 @@ resource "aws_iam_role_policy" "github-oidc-role-policy" {
           "s3:*"
         ],
         Effect   = "Allow",
-        Resource = "arn:aws:s3:::ave-terraform-backend/*"
+        Resource = "arn:aws:s3:::bodhi-terraform-backend/*"
       },
       {
         Sid = "",
