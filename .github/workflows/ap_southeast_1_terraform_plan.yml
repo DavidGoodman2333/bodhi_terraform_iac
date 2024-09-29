@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'infra/int/ap-southeast-1/**'
+    types:
+      - closed
+    branches:
+      - main
 permissions:
   id-token: write
   contents: read

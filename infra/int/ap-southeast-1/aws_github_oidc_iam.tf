@@ -12,7 +12,7 @@ resource "aws_iam_role" "github-oidc-role" {
         }
         Condition = {
           "StringLike" = {
-            "token.actions.githubusercontent.com:sub" : ["repo:avidGoodman2333/bodhi_terraform_iac:*"],
+            "token.actions.githubusercontent.com:sub" : ["repo:DavidGoodman2333/bodhi_terraform_iac:*"],
           }
 
           "StringEquals" = {
