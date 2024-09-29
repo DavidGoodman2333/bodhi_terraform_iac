@@ -4,3 +4,4 @@ resource "aws_s3_bucket" "file_bucket" {
     env = "int"
   }
 }
+
