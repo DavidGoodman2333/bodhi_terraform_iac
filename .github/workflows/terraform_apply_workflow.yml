@@ -1,0 +1,38 @@
+name: Terraform Infra Apply Workflow
+on:
+  workflow_call: 
+    inputs: 
+      region:
+        required: true
+        type: string
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+jobs:
+  terraform-apply:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+    steps:
+      - name: Git Clone the Repository
+        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::476114114107:role/bodhi-terrraform-iac-role
+          role-session-name: github-terraform-infra-provision-session
+          aws-region: ${{ inputs.region }}
+      - run: |
+          TOKEN=/tmp/web_identity_token
+          curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r '.value' > $TOKEN
+          export AWS_WEB_IDENTITY_TOKEN_FILE=$TOKEN >> $GITHUB_ENV
+      - name: Terraform Install
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.3"
+      - name: Terraform Init
+        run: cd infras/prod/${{ inputs.region }} && terraform init
+      - name: Terraform Apply
+        id: apply
+        run: cd infras/prod/${{ inputs.region }} && terraform apply -auto-approve
+
+
