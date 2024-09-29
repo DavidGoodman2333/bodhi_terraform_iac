@@ -8,7 +8,7 @@ resource "aws_iam_role" "github-oidc-role" {
         Action = "sts:AssumeRoleWithWebIdentity"
         Effect = "Allow"
         Principal = {
-          Federated = "arn:aws:iam::987595490691:oidc-provider/token.actions.githubusercontent.com"
+          Federated = "arn:aws:iam::476114114107:oidc-provider/token.actions.githubusercontent.com"
         }
         Condition = {
           "StringLike" = {
