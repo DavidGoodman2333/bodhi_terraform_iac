@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = var.backend_bucket
+    bucket = "bodhi-terraform-backend"
     region = "ap-southeast-1"
     key    = "ap-southeast-1/state"
   }
