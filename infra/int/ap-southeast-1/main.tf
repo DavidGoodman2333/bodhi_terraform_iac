@@ -28,10 +28,3 @@ provider "aws" {
     web_identity_token_file = "/tmp/web_identity_token"
   }
 }
-
-data "aws_s3_bucket" "file_bucket" {
-  bucket = "file-bucket"
-  tags = {
-    env = "int"
-  }
-}
