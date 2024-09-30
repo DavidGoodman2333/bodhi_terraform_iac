@@ -5,3 +5,9 @@ resource "aws_s3_bucket" "bodhi_image_bucket" {
   }
 }
 
+resource "aws_s3_bucket" "bodhi_file_bucket" {
+  bucket = "bodhi-file-bucket"
+  tags = {
+    env = "int"
+  }
+}
