@@ -69,45 +69,36 @@ data "aws_iam_role" "github-oidc-role" {
   }
 }
 
-data "aws_iam_role_policy" "github-oidc-role-policy" {
-  name = "github-oidc-role-policy"
-  role = aws_iam_role.github-oidc-role.id
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Sid = "",
-        Action = [
-          "ec2:*",
-          "iam:*",
-          "logs:*",
-          "kms:*",
-          "route53:*",
-          "route53resolver:*",
-          "acm:*",
-          "ecr:*",
-          "shield:*",
-          "eks:*"
-        ],
-        Effect   = "Allow",
-        Resource = "*"
-      },
-      {
-        Action = [
-          "s3:*"
-        ],
-        Effect   = "Allow",
-        Resource = "arn:aws:s3:::bodhi-terraform-backend/*"
-      },
-      {
-        Sid = "",
-        Action = [
-          "s3:*",
-        ],
-        Effect   = "Allow",
-        Resource = "arn:aws:s3:::*"
-      }
+data "aws_iam_policy_document" "github_oidc_policy" {
+  statement {
+    actions = [
+      "ec2:*",
+      "iam:*",
+      "logs:*",
+      "kms:*",
+      "route53:*",
+      "route53resolver:*",
+      "acm:*",
+      "ecr:*",
+      "shield:*",
+      "eks:*"
     ]
-  })
+    resources = ["*"]
+  }
 
+  statement {
+    actions = ["s3:*"]
+    resources = ["arn:aws:s3:::bodhi-terraform-backend/*"]
+  }
+
+  statement {
+    actions = ["s3:*"]
+    resources = ["arn:aws:s3:::*"]
+  }
+}
+
+resource "aws_iam_role_policy" "github-oidc-role-policy" {
+  name   = "github-oidc-role-policy"
+  role   = aws_iam_role.github-oidc-role.id
+  policy = data.aws_iam_policy_document.github_oidc_policy.json
 }
