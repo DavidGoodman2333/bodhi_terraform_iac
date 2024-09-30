@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "bodhi-terraform-backend"
+    bucket = var.backend_bucket
     region = "ap-southeast-1"
     key    = "ap-southeast-1/state"
   }
@@ -19,17 +19,15 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
-
 provider "aws" {
   region = "ap-southeast-1"
 
   assume_role_with_web_identity {
-    role_arn                = "arn:aws:iam::476114114107:role/github-oidc-role"
+    role_arn                = var.role_arn
     session_name            = "terraform-infra-provision-session"
     web_identity_token_file = "/tmp/web_identity_token"
   }
 }
-
 
 module "iam_github_oidc_provider" {
   source = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-provider"
@@ -40,8 +38,7 @@ module "iam_github_oidc_provider" {
   }
 }
 
-
-resource "aws_iam_role" "github-oidc-role" {
+data "aws_iam_role" "github-oidc-role" {
   name = "github-oidc-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -70,10 +67,9 @@ resource "aws_iam_role" "github-oidc-role" {
     terraform-managed = true
     environment       = "int"
   }
-
 }
 
-resource "aws_iam_role_policy" "github-oidc-role-policy" {
+data "aws_iam_role_policy" "github-oidc-role-policy" {
   name = "github-oidc-role-policy"
   role = aws_iam_role.github-oidc-role.id
   policy = jsonencode({
