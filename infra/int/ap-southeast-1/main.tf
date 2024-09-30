@@ -40,28 +40,29 @@ module "iam_github_oidc_provider" {
 
 data "aws_iam_role" "github-oidc-role" {
   name = "github-oidc-role"
-  assume_role_policy = <<EOF {
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Sid    = ""
-        Action = "sts:AssumeRoleWithWebIdentity"
-        Effect = "Allow"
-        Principal = {
-          Federated = "arn:aws:iam::476114114107:oidc-provider/token.actions.githubusercontent.com"
-        }
-        Condition = {
-          "StringLike" = {
-            "token.actions.githubusercontent.com:sub" : ["repo:DavidGoodman2333/bodhi_terraform_iac:*"],
-          }
-
-          "StringEquals" = {
-            "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com"
-          }
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::476114114107:oidc-provider/token.actions.githubusercontent.com"
+      },
+      "Condition": {
+        "StringLike": {
+          "token.actions.githubusercontent.com:sub": ["repo:DavidGoodman2333/bodhi_terraform_iac:*"]
+        },
+        "StringEquals": {
+          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
         }
       }
-    ]
-  }EOF
+    }
+  ]
+}
+EOF
 
   tags = {
     terraform-managed = true
