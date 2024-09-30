@@ -40,7 +40,7 @@ module "iam_github_oidc_provider" {
 
 data "aws_iam_role" "github-oidc-role" {
   name = "github-oidc-role"
-  assume_role_policy = jsonencode({
+  assume_role_policy = <<EOF {
     Version = "2012-10-17",
     Statement = [
       {
@@ -61,7 +61,7 @@ data "aws_iam_role" "github-oidc-role" {
         }
       }
     ]
-  })
+  }EOF
 
   tags = {
     terraform-managed = true
