@@ -9,13 +9,6 @@ module "eks" {
   vpc_id                                   = module.vpc.vpc_id
   subnet_ids                               = module.vpc.private_subnets
 
-  cluster_addons = {
-    aws-ebs-csi-driver = {
-      addon_version = "v1.33.0-eksbuild.1"
-      service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
-    }
-  }
-
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
   }
