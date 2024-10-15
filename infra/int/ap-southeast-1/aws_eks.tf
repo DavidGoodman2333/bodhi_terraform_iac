@@ -6,8 +6,6 @@ module "eks" {
   cluster_endpoint_private_access          = true
   cluster_endpoint_public_access           = false
   enable_cluster_creator_admin_permissions = true
-  vpc_id                                   = module.vpc.vpc_id
-  subnet_ids                               = module.vpc.private_subnets
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
@@ -21,7 +19,6 @@ module "eks" {
       desired_size   = 1
       instance_types = ["t3.micro"]
       capacity_type  = "ON_DEMAND"
-      subnet_ids     = [module.vpc.private_subnets[0], module.vpc.private_subnets[1], module.vpc.private_subnets[2]]
       tags = {
         "k8s.io/cluster-autoscaler/bodhi-int-eks" = "owned"
         "k8s.io/cluster-autoscaler/enabled"           = "TRUE"
@@ -38,7 +35,6 @@ module "eks" {
       desired_size   = 1
       instance_types = ["t3.micro"]
       capacity_type  = "ON_DEMAND"
-      subnet_ids     = [module.vpc.private_subnets[3],module.vpc.private_subnets[4],module.vpc.private_subnets[5]]
       tags = {
         "k8s.io/cluster-autoscaler/bodhi-int-eks" = "owned"
         "k8s.io/cluster-autoscaler/enabled"           = "TRUE"
