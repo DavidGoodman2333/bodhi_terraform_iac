@@ -24,7 +24,7 @@ module "vpc" {
 
   tags = {
     terraform-managed = true
-    environment       = "prod"
+    environment       = "int"
   }
 
 }
