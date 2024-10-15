@@ -13,6 +13,11 @@ module "eks" {
     ami_type = "AL2_x86_64"
   }
 
+ vpc_config {
+    endpoint_private_access   = true
+    endpoint_public_access    = false
+  }
+
   eks_managed_node_groups = {
     k8s-core = {
       name           = "k8s-core"
