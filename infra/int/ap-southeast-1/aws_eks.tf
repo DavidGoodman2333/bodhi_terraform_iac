@@ -16,7 +16,7 @@ module "eks" {
   eks_managed_node_groups = {
     k8s-core = {
       name           = "k8s-core"
-      min_size       = 2
+      min_size       = 1
       max_size       = 10
       desired_size   = 2
       instance_types = ["t3.micro"]
