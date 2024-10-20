@@ -16,9 +16,9 @@ module "eks" {
   eks_managed_node_groups = {
     k8s-core = {
       name           = "k8s-core"
-      min_size       = 1
+      min_size       = 2
       max_size       = 2
-      desired_size   = 1
+      desired_size   = 2
       instance_types = ["t3.micro"]
       capacity_type  = "ON_DEMAND"
       subnet_ids     = [module.vpc.private_subnets[0], module.vpc.private_subnets[1], module.vpc.private_subnets[2]]
@@ -36,7 +36,7 @@ module "eks" {
       min_size       = 1
       max_size       = 2
       desired_size   = 1
-      instance_types = ["t3.micro"]
+      instance_types = ["t3a.medium"]
       capacity_type  = "ON_DEMAND"
       subnet_ids     = [module.vpc.private_subnets[3],module.vpc.private_subnets[4],module.vpc.private_subnets[5]]
       tags = {
