@@ -17,7 +17,7 @@ module "eks" {
     k8s-core = {
       name           = "k8s-core"
       min_size       = 2
-      max_size       = 2
+      max_size       = 10
       desired_size   = 2
       instance_types = ["t3.micro"]
       capacity_type  = "ON_DEMAND"
@@ -34,7 +34,7 @@ module "eks" {
     int =  {
       name           = "int"
       min_size       = 1
-      max_size       = 2
+      max_size       = 10
       desired_size   = 1
       instance_types = ["t3a.medium"]
       capacity_type  = "ON_DEMAND"
