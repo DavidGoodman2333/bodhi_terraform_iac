@@ -50,6 +50,24 @@ module "eks" {
   }
 
   node_security_group_additional_rules = {
+    postgresql_service_ingress_rule_1 = {
+      description                   = "pg ingress 1"
+      protocol                      = "TCP"
+      from_port                     = 15232
+      to_port                       = 15232
+      type                          = "ingress"
+      source_cluster_security_group = true
+    }
+
+    postgresql_service_ingress_rule_2 = {
+      description                   = "pg ingress 2"
+      protocol                      = "TCP"
+      from_port                     = 30970
+      to_port                       = 30970
+      type                          = "ingress"
+      source_cluster_security_group = true
+    }
+
     prometheus_service_ingress_rule = {
       description                   = "prometheus ingress"
       protocol                      = "TCP"
