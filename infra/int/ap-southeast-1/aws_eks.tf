@@ -35,7 +35,7 @@ module "eks" {
       name           = "int"
       min_size       = 1
       max_size       = 10
-      desired_size   = 1
+      desired_size   = 2
       instance_types = ["t3a.medium"]
       capacity_type  = "ON_DEMAND"
       subnet_ids     = [module.vpc.private_subnets[3],module.vpc.private_subnets[4],module.vpc.private_subnets[5]]
