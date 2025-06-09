@@ -26,5 +26,4 @@ module "vpc" {
     terraform-managed = true
     environment       = "int"
   }
-
 }
